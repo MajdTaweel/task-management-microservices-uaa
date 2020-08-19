@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.asaltech.authserver"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "uaa",
+    "baseName": "authServer",
+    "packageName": "com.asaltech.authserver",
+    "packageFolder": "com/asaltech/authserver",
+    "serverPort": "9999",
+    "authenticationType": "uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZjYwNDAxYzg2MjlmOGQ4YzVmNThkOGZmYmM2N2U3MmNjNjBjYzJmMmZhOWM4NDJiNzk1OWEwMjBiMWQ4Mzg1MWY2NWY0YjdmNzFjMjRkNDJhYjE2MzZkOGI5ZDA3YjBiYjBjYjc5ZTc4OTYzNDg0NzI3ODRmMDc5YjE0OTA5NWE=",
+    "embeddableLaunchScript": false,
+    "creationTimestamp": 1597831227984,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "blueprints": [],
+    "skipClient": true
+  }
+}
