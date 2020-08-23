@@ -3,7 +3,6 @@ package com.asaltech.authserver.config.dbmigrations;
 import com.asaltech.authserver.domain.Authority;
 import com.asaltech.authserver.domain.User;
 import com.asaltech.authserver.security.AuthoritiesConstants;
-
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,8 +21,11 @@ public class InitialSetupMigration {
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
         Authority userAuthority = new Authority();
         userAuthority.setName(AuthoritiesConstants.USER);
+        Authority leadAuthority = new Authority();
+        leadAuthority.setName(AuthoritiesConstants.LEAD);
         mongoTemplate.save(adminAuthority);
         mongoTemplate.save(userAuthority);
+        mongoTemplate.save(leadAuthority);
     }
 
     @ChangeSet(order = "02", author = "initiator", id = "02-addUsers")
@@ -32,6 +34,8 @@ public class InitialSetupMigration {
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
         Authority userAuthority = new Authority();
         userAuthority.setName(AuthoritiesConstants.USER);
+        Authority leadAuthority = new Authority();
+        leadAuthority.setName(AuthoritiesConstants.LEAD);
 
         User systemUser = new User();
         systemUser.setId("user-0");
@@ -45,6 +49,7 @@ public class InitialSetupMigration {
         systemUser.setCreatedBy(systemUser.getLogin());
         systemUser.setCreatedDate(Instant.now());
         systemUser.getAuthorities().add(adminAuthority);
+        systemUser.getAuthorities().add(leadAuthority);
         systemUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(systemUser);
 
@@ -73,6 +78,7 @@ public class InitialSetupMigration {
         adminUser.setCreatedBy(systemUser.getLogin());
         adminUser.setCreatedDate(Instant.now());
         adminUser.getAuthorities().add(adminAuthority);
+        systemUser.getAuthorities().add(leadAuthority);
         adminUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(adminUser);
 
@@ -89,5 +95,20 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
+
+        // The team lead user's password is "user"
+        User leadUser = new User();
+        leadUser.setId("user-4");
+        leadUser.setLogin("lead");
+        leadUser.setPassword("$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K");
+        leadUser.setFirstName("");
+        leadUser.setLastName("Lead");
+        leadUser.setEmail("lead@localhost");
+        leadUser.setActivated(true);
+        leadUser.setLangKey("en");
+        leadUser.setCreatedBy(systemUser.getLogin());
+        leadUser.setCreatedDate(Instant.now());
+        leadUser.getAuthorities().add(leadAuthority);
+        mongoTemplate.save(leadUser);
     }
 }
